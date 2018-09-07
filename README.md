@@ -184,6 +184,18 @@ c.LDAPAuthenticator.user_search_filter = '(&(objectClass=person)(sAMAccountName=
 c.LDAPAuthenticator.user_membership_attribute = 'memberOf'
 ```
 
+
+<dl>
+  <dt>LDAPAuthenticator.filter_by_group</dt>
+  <dd>Boolean used to activate or deactivate group membership filtering (defaults to 'True').</dd>
+</dl>
+
+```python
+# example
+c.LDAPAuthenticator.filter_by_group = False
+```
+
+
 <dl>
   <dt>LDAPAuthenticator.group_search_base</dt>
   <dd>The location in the Directory Information Tree where the group search will start.
