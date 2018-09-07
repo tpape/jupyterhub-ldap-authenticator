@@ -165,6 +165,14 @@ class LDAPAuthenticator(Authenticator):
         have that value substituted with the username of the authenticating user.
         """
     )
+    
+    filter_by_group = Bool(
+        default_value=True,
+        config=True,
+        help="""
+        Boolean specifying if the group membership filtering is enabled or not.
+        """
+    )
 
     user_membership_attribute = Unicode(
         default_value='memberOf',
@@ -532,7 +540,7 @@ class LDAPAuthenticator(Authenticator):
 
                 # is authenticating user a member of permitted_groups
                 allowed_memberships = list(set(auth_user_memberships).intersection(permitted_groups))
-                if bool(allowed_memberships):
+                if bool(allowed_memberships) or not self.filter_by_group:
                     self.log.debug(
                         "User '%s' found in the following allowed ldap groups %s. Proceeding with authentication.",
                         username, allowed_memberships)
